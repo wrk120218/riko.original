@@ -1,0 +1,754 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 70px;
+}
+
+/* body.is-open {
+    overflow: hidden;
+} */
+
+body { 
+    /* position: relative; */
+    overflow-x: hidden; 
+    width:100%;
+}
+
+/* --------------------header--------------------- */
+header{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    width:100%;
+    height:50px;
+    padding:10px 20px;
+    z-index: 150;
+    position: sticky; top: 0;
+}
+
+.header-logo{
+   display: block;
+   width:20%;
+   line-height: 0;
+   margin-right:30px;
+}
+
+.header-logo img{
+    width:100%;
+}
+
+.header-list{
+    display: flex;
+}
+
+.header-list li{
+    list-style:none;
+    margin-left:15px;
+}
+
+.header-list a{
+    color:aliceblue;
+    text-decoration:none;
+    /* font-weight: bold; */
+}
+
+.hamburger ,.header-nav{
+  display: none;
+}
+
+/* --------------------main-------------------- */
+
+.main-visual {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* ＝＝＝回転背景＝＝＝ */
+.bg-rotate {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250vmax;
+    height: 250vmax;
+    transform: translate(-50%, -50%);
+    animation: rotateBg 20s linear infinite;
+    object-fit: cover;
+}
+
+/* ＝＝＝透過ロゴ＝＝＝ */
+.bg-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    max-width: 80%;
+    z-index: 10;
+    transition: transform 0.3s ease-out, filter 0.3s;
+}
+
+.bg-logo:hover {
+    transform: translate(-50%, -55%) scale(1.05); /* 少し浮いて大きくなる */
+    filter: drop-shadow(0 20px 30px rgba(0,0,0,0.4)); /* 影で立体感を出す */
+    cursor: pointer;
+}
+
+@keyframes rotateBg {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ＝＝＝ 太陽 ＝＝＝ */
+.sun-container {
+    position: absolute;
+    top: -6rem;   
+    right: -5rem;
+    width: 300px;
+    height: 300px;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sun-rotate-bg {
+    position: absolute;
+    width: fit-content;
+    height: 100%;
+    object-fit: contain;
+    animation: rotateSun 15s linear infinite; 
+}
+
+.sun-text a{
+    position: relative;
+    z-index: 51;
+    color: #fff; 
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.6rem;
+    text-align: center;
+    line-height: 1.2;
+    right:25px;
+    top:20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+@keyframes rotateSun {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ＝＝＝福ベア＝＝＝ */
+.character-walk-area {
+    position: relative;
+    width: 100%;
+    height: 100px; 
+    /* background: #000;  */
+    /* overflow:hidden; */
+    overflow-x: clip;    
+    overflow-y: visible;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.walking-character {
+    position: absolute;
+    left: -150px; 
+    bottom: 10px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    animation: moveRight 15s linear infinite; 
+    clip-path: inset(-100px 0px -20px 0px);
+}
+
+.char-img {
+    height: 113px; 
+    width: auto;
+    z-index: 100;
+    order: 2; 
+    animation: hokoHoko 1.0s ease-in-out infinite alternate;
+}
+
+@keyframes hokoHoko {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-10px); } 
+}
+
+@keyframes showStep {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes moveRight {
+    0% { left: -150px; }
+    100% { left: 100%; }
+}
+
+.footprints {
+    display: flex;
+    order: 1;
+    margin-right: 10px;
+}
+
+.step {
+    width: 40px; 
+    height: auto;
+    opacity: 0;
+    margin-right: 15px; 
+    /* animation: showStep 10s steps(1) infinite; */
+    animation: 
+    showStep 15s steps(1) infinite,
+    stepHokoHoko 0.5s ease-in-out infinite alternate forwards;
+}
+
+@keyframes showStep {
+    0%, 10% { opacity: 0; }
+    15%, 100% { opacity: 1; } 
+}
+
+/* 各足跡のタイミングをずらす
+.s1 { animation-delay: 1s; }
+.s2 { animation-delay: 1.5s; }
+.s3 { animation-delay: 2s; }
+.s4 { animation-delay: 2.5s; } */
+
+/* 表示のタイミング（元の設定）はそのままに、上下揺れの開始もずらします */
+.s1 { 
+  animation-delay: 0s, 0s; 
+}
+.s2 { 
+  animation-delay: 0s, 0.25s; 
+}
+.s3 { 
+  animation-delay: 0s, 0s; 
+}
+.s4 { 
+  animation-delay: 0s, 0.25s; 
+}
+
+@keyframes stepHokoHoko {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-5px); } 
+}
+
+/* ========= section ========== */
+.section-inner{
+    margin-inline:auto;
+    margin-bottom:50px;
+    text-align: center;
+    max-width: 1000px;
+}
+
+.section-inner h2{
+    margin-bottom: 60px;
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.section-body{
+    padding-inline:20px;
+    line-height: 30px;
+    margin-inline:auto;
+}
+
+.section-body1 .text{
+    padding-inline:180px;
+    margin-inline: auto;
+}
+
+/* ＝＝＝ about ＝＝＝ */
+.about-list{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    margin-block:50px;
+    padding-block:60px;
+    border-top:1px solid #111;
+    border-bottom:1px solid #111;
+    max-width: 1000px;
+}
+
+.about-list li{
+    list-style:none;
+    align-items: center;
+    /* text-align: center; */
+    width:50%;
+    font-weight:bold;
+}
+
+.schedule p:first-child{
+    font-size:20px;
+}
+
+.schedule p:last-child{
+    font-size:10px;
+}
+
+.schedule dl{
+    border-right:1px solid #111;
+}
+
+.spot dl{
+    font-size:20px;
+}
+
+/* ＝＝＝LIVE ACT＝＝＝ */
+
+/* .live-act ul{
+    display: flex;
+    margin-inline:auto;
+}
+
+.live-act li{
+    list-style:none;
+}
+
+.live-act a{
+    font-weight: bold;
+    text-decoration: none;
+    color:black;
+} */
+
+.live-act{
+    background-image: url(../img/vivid-blurred-colorful-wallpaper-background_58702-3710.avif); 
+    background-size: cover;   
+    background-position: center; 
+    background-repeat: no-repeat; 
+    transform: scaleY(-1); 
+    padding-block:50px;
+    position: relative; 
+    overflow: hidden;
+}
+
+.live-act .section-inner {
+  transform: scaleY(-1);
+  position: relative;
+  z-index: 2;
+}
+
+.live-act::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px; 
+  background: linear-gradient(to bottom, white, rgba(255, 255, 255, 0));
+  z-index: 1;
+}
+
+.live-act::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100px; 
+  background: linear-gradient(to top, white, rgba(255, 255, 255, 0));
+  z-index: 1;
+}
+
+/* ＝ 1.24/ 1.25 楕円ボタン ＝*/
+.section-heading ul{
+  display: flex;
+  justify-content: center;
+  gap: 30px;           
+  padding: 0;
+  margin-block:20px;  
+}
+
+.section-heading li{
+  list-style: none;
+}
+
+.section-heading a{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 320px;          
+  height: 46px;          
+  border-radius: 80px;
+  background: #d9d9d9;  
+  color: #111;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 10px 0 rgba(0,0,0,.15); 
+}
+
+.section-heading ul li a:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 10px 0 rgba(0,0,0,.15);
+}
+
+.section-body .date{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;             
+  margin: 30px 0 20px;
+}
+
+.section-body .date span{
+  display: block;
+}
+
+.section-body .date span:not(.text){
+  flex: 1;               
+  max-width: 260px;      
+  height: 2px;
+  background: rgba(0,0,0,.25);
+}
+
+.section-body .date .text{
+  font-weight: 800;
+  color: #111;
+  letter-spacing: .02em;
+}
+
+.live-act24{
+    margin-bottom:120px;
+}
+
+.live-act24 ul,.live-act25 ul{
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(300px,3fr));
+    gap:30px;
+}
+
+.live-act24 li,.live-act25 li{
+    list-style: none;
+}
+
+.live-act24 img,.live-act25 img{
+    max-width: 100%;
+}
+
+.live-act24 i,.live-act25 i{
+    color:crimson;
+}
+/* ===tickets=== */
+/* .tickets{
+    background-image: url(../img/S__75939881.jpg); 
+    background-size: cover;   
+    background-position: center; 
+    background-repeat: no-repeat; 
+    transform: scaleY(-1); 
+    padding-block:50px;
+}
+
+.tickets .section-inner {
+  transform: scaleY(-1);
+} */
+
+.tickets {
+  background-image:url(../img/S__75939881.jpg); 
+  background-size: 800px; 
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.content-ticket h3{
+    font-size:23px;
+}
+
+.content-ticket p{
+    font-size:20px;
+}
+
+.ticket-list {
+  max-width: 700px; 
+  margin: 20px auto 0;
+}
+
+.ticket-link {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 2px 0;
+  margin: 0 auto;
+  border-bottom: 2px solid #d9d9d9; 
+  text-decoration: none;
+  color: #333;
+  transition: opacity 0.3s;
+  max-width :50%;
+}
+
+.ticket-link:hover {
+  opacity: 0.7; 
+}
+
+/* .ticket-link img {
+  height: 50px; 
+  width: auto;
+} */
+
+.ticket-link span {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.ticket-link dt {
+  flex: 1;              
+  display: flex;        
+  justify-content: center; 
+  padding-left: 40px;  
+}
+
+.ticket-link img {
+  height: auto;         
+  max-height: 200px;     
+  width: 100%;    
+  object-fit: contain;
+}
+
+.ticket-link dd {
+  width: 40px;          
+  text-align: right;
+}
+
+.access{
+    overflow: hidden;
+    position: relative;
+}
+
+.access .section-inner{
+    /* position: relative; */
+    /* overflow: hidden; */
+}
+
+/* -------------------------------------------
+   1. アニメーションの動きを定義（これが必要！）
+   ------------------------------------------- */
+@keyframes bubbleRise {
+  0% {
+    transform: translateY(100%) scale(0.8); /* 画面の下から */
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6; /* ふわっと現れる */
+  }
+  80% {
+    opacity: 0.6; /* 消えずに昇る */
+  }
+  100% {
+    transform: translateY(-120vh) scale(1.2); /* 画面の上まで突き抜ける */
+    opacity: 0;
+  }
+}
+
+/* /* -------------------------------------------
+    ACCESSセクションにシャボン玉を配置
+   ------------------------------------------- */
+#ACCESS {
+  position: relative;
+  overflow: hidden; /* はみ出たシャボン玉をカット */
+  z-index: 1;
+  padding-block: 100px;
+}
+
+#ACCESS::before {
+  content: "";
+  position: absolute;
+  bottom: -100px; /* スタート位置 */
+  left: 0;
+  width: 100%;
+  height: 1200px; /* 画像の表示エリア */
+  
+  /* 画像の設定：ファイル名は「シャボン玉.png」に修正 */
+  background-image: url(../img/シャボン玉２.png); 
+  background-size: contain;
+  background-repeat: repeat;
+  background-position: center bottom;
+  
+  /* アニメーション適用 */
+  animation: bubbleRise 20s linear infinite;
+  z-index: -1; /* 地図の後ろへ */
+  pointer-events: none; /* 地図の操作を邪魔しない */
+}
+
+/* 地図などのコンテンツを一番手前に */
+#ACCESS .section-inner {
+  position: relative;
+  z-index: 5;
+} 
+
+.footer-area{
+    position: relative;
+    overflow: hidden;
+}
+
+
+.pagetop-button {
+    position:absolute;
+    bottom: -3rem;  
+    right: -2rem;   
+    width: clamp(100px,10vw,200px);
+    height: 200px; 
+    max-width: 550px;
+    min-width: 200px;
+    /* transform: translate(36%, 70%); */
+    z-index: -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+}
+
+.pagetop-button img {
+    width: 100% !important;  
+    height: 100% !important; 
+    object-fit: contain;    
+    display: block;
+}
+
+.pagetop-button:hover {
+    transform: translateY(-3px); 
+}
+
+.lastsun-text{
+    position: absolute;
+    z-index: 5;
+    color: #fff; 
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 1.2;
+    left:10%;
+    top:40%;
+    /* transform: translate(-47%, -48%); */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+footer{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#fff;
+    background-color: #111;
+    height:50px;
+    width:100%;
+    /* overflow: hidden; */
+}
+
+
+
+
+
+
+/* *****レスポンシブ****** */
+@media(max-width: 768px) {
+.hamburger {
+    display: block !important; 
+    position: relative;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+    z-index: 201;
+}
+
+.hamburger span {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    transition: all 0.4s;
+}
+
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 11px; }
+.hamburger span:nth-child(3) { top: 22px; }
+
+.hamburger.is-active span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+.hamburger.is-active span:nth-child(2) { opacity: 0; }
+.hamburger.is-active span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+
+
+.header-nav {
+    display: block;
+    position: fixed;
+    top: 0;
+    left:100%;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    transition: all 0.5s;
+    z-index: 200;
+    opacity: 0;
+    /* pointer-events: none; */
+}
+
+.header-nav.is-active {
+    left: 0;
+    opacity: 1;
+    /* pointer-events: auto; */
+}
+
+.header-list{
+    display:none;
+}
+    
+.header-list2{
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    gap: 30px;    
+    z-index: 100;
+}
+
+.header-list2 li{
+    list-style: none;
+}
+
+.header-list2 a {
+    color:gold;
+    text-decoration: none;
+    font-size: 24px;        
+    font-weight: bold;
+}
+    
+@keyframes moveRight {
+    0% { left: -100px; }   
+    100% { left: calc(100% - 100px); } 
+}
+    
+.char-img {
+     /* height: 100px;  */
+     width: auto;
+}
+    
+.step{
+    width:30px;
+    overflow: hidden;
+}
+    
+.section-inner {
+    width: 90%;
+    padding: 40px 0;
+}
+    
+.section-body1 .text{
+    padding-inline:100px;
+}
+    
+/* .sun-container{
+    top: -140px;  
+    right: -130px;
+    width: 400px;
+    height: 400px;
+} */
+    
+/* .sun-text a{
+    font-size: 1.3rem;
+    right:12px;
+    top:10px;
+} */
+                
+}
