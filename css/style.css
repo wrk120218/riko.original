@@ -543,7 +543,7 @@ header{
     max-width: 550px;
     min-width: 200px;
     /* transform: translate(36%, 70%); */
-    z-index: -1;
+    z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
