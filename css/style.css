@@ -758,6 +758,7 @@ footer{
     padding-inline: 20px;
     font-size: 1.6rem;
     line-height: 1.6;
+    
   }
 
   .live-act .section-heading li {
@@ -769,4 +770,13 @@ footer{
   padding-inline: 20px;
 }
 
+.pagetop-button{
+  position: absolute;
+  z-index: 1 !important;
+}
+
+.access p{
+  position: relative;
+  z-index: 5 !important;
+}
 }
